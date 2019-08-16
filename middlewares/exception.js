@@ -4,23 +4,26 @@ const catchError = async (ctx, next) => {
   try {
     await next();
   } catch (error) {
-    if (global.config.env === 'dev') console.log(error);
-    
-    if (error instanceof HttpException) {
+    const isHttpException = error instanceof HttpException;
+    const isDev = global.config.environment === 'dev';
+
+    if (isDev && !isHttpException) {
+      throw error;
+    }
+
+    if (isHttpException) {
       ctx.body = {
-        message: error.message,
-        details: error.details,
-        errorCode: error.errorCode,
-        request: `${ctx.method} ${ctx.path}`
+        msg: error.msg,
+        error_code: error.errorCode,
+        request: `${ctx.method} ${ctx.path}`,
       };
       ctx.status = error.code;
     } else {
       ctx.body = {
-        message: '服务端异常',
-        details: null,
-        errorCode: 999,
-        request: `${ctx.method} ${ctx.path}`
-      }
+        msg: '服务端异常',
+        error_code: 999,
+        request: `${ctx.method} ${ctx.path}`,
+      };
       ctx.status = 500;
     }
   }

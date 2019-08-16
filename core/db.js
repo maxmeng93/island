@@ -8,10 +8,17 @@ const sequelize = new Sequelize(dbName, user, password, {
   port,
   logging: false,
   timezone: '+08:00',
-  define: {}
+  define: {
+    // create_time update_time delete_time
+    timestamps: true,
+    paranoid: true,
+    underscored: true
+  }
 });
 
-sequelize.sync();
+sequelize.sync({
+  force: true
+});
 
 module.exports = {
   sequelize

@@ -6,7 +6,7 @@ class InitManager {
     // 入口方法
     InitManager.app = app;
     InitManager.initLoadRouters();
-    // InitManager.loadHttpException();
+    InitManager.loadHttpException();
     InitManager.loadConfig();
   }
 
@@ -31,10 +31,10 @@ class InitManager {
     }
   }
 
-  // static loadHttpException() {
-  //   const errors = require('./http-exception');
-  //   global.errs = errors;
-  // }
+  static loadHttpException() {
+    const errors = require('./http-exception');
+    global.errs = errors;
+  }
 }
 
 module.exports = InitManager;
