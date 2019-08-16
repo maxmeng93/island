@@ -6,6 +6,15 @@ class InitManager {
     // 入口方法
     InitManager.app = app;
     InitManager.initLoadRouters();
+    // InitManager.loadHttpException();
+    InitManager.loadConfig();
+  }
+
+  // 加载配置文件
+  static loadConfig(path = '') {
+    const configPath = path || process.cwd() + '/config/config.js';
+    const config = require(configPath);
+    global.config = config;
   }
 
   static initLoadRouters() {
@@ -21,6 +30,11 @@ class InitManager {
       }
     }
   }
+
+  // static loadHttpException() {
+  //   const errors = require('./http-exception');
+  //   global.errs = errors;
+  // }
 }
 
 module.exports = InitManager;
