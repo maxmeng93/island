@@ -47,7 +47,7 @@ const generateToken = function (uid, scope) {
     uid,
     scope,
   }, secretKey, {
-    expiresIn: expiresIn,
+    expiresIn,
   });
   return token;
 };
